@@ -1,0 +1,42 @@
+{
+    "name": "lara-igniter/laraigniter-qrcode",
+    "description": "Fluent QR codes for Laraigniter. The QrCode facade builds a code through BaconQrCode and returns the image bytes.",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "laraigniter",
+        "qrcode",
+        "qr"
+    ],
+    "homepage": "https://github.com/lara-igniter/laraigniter-qrcode",
+    "support": {
+        "issues": "https://github.com/lara-igniter/laraigniter-qrcode/issues",
+        "source": "https://github.com/lara-igniter/laraigniter-qrcode"
+    },
+    "require": {
+        "php": "^7.4|^8.0",
+        "ext-gd": "*",
+        "bacon/bacon-qr-code": "^2.0",
+        "lara-elegant/support": "^1.10"
+    },
+    "suggest": {
+        "ext-imagick": "Uses the Imagick renderer for PNG gradients. GD renders PNG when Imagick is missing."
+    },
+    "autoload": {
+        "psr-4": {
+            "Laraigniter\\QrCode\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        },
+        "laraigniter": {
+            "providers": [
+                "Laraigniter\\QrCode\\QrCodeServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}
