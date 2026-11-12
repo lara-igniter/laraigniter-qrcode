@@ -17,13 +17,15 @@ class GdMatrixRenderer
         $level = $generator->correctionLevel() ?? ErrorCorrectionLevel::M();
         $matrix = Encoder::encode($text, $level, $generator->characterEncoding())->getMatrix();
         $count = $matrix->getWidth();
-        $pixels = max(1, $generator->pixelSize());
+        $requested = max(1, $generator->pixelSize());
         $margin = max(0, $generator->marginSize());
         $span = $count + ($margin * 2);
+        $module = max(1, (int) round($requested / $span));
+        $pixels = $module * $span;
         $image = imagecreatetruecolor($pixels, $pixels);
 
         if (function_exists('imageantialias')) {
-            imageantialias($image, true);
+            imageantialias($image, false);
         }
 
         $background = $this->allocate($image, $generator->background());
@@ -128,13 +130,13 @@ class GdMatrixRenderer
      */
     private function box(int $pixels, int $span, int $margin, int $x, int $y): array
     {
-        $scale = $pixels / $span;
+        $module = intdiv($pixels, $span);
 
         return [
-            (int) round(($margin + $x) * $scale),
-            (int) round(($margin + $y) * $scale),
-            (int) round(($margin + $x + 1) * $scale),
-            (int) round(($margin + $y + 1) * $scale),
+            ($margin + $x) * $module,
+            ($margin + $y) * $module,
+            ($margin + $x + 1) * $module,
+            ($margin + $y + 1) * $module,
         ];
     }
 
